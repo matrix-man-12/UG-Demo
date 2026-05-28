@@ -20,8 +20,8 @@ export const ShelvesList = ({
         <div className="skeleton-row">
           <div className="skeleton-title"></div>
           <div className="skeleton-cards">
-            {[1, 2, 3, 4, 5].map((i) => (
-              <div key={i} className="skeleton-card landscape">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className="skeleton-card square">
                 <div className="shimmer"></div>
               </div>
             ))}
@@ -30,8 +30,8 @@ export const ShelvesList = ({
         <div className="skeleton-row">
           <div className="skeleton-title"></div>
           <div className="skeleton-cards">
-            {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="skeleton-card square">
+            {[1, 2, 3, 4, 5].map((i) => (
+              <div key={i} className="skeleton-card landscape">
                 <div className="shimmer"></div>
               </div>
             ))}
