@@ -320,11 +320,15 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: 75vh;
+  height: 85vh;
   background-size: cover;
   background-position: center 20%;
   transition: background-image 600ms ease-in-out, height 500ms ease, opacity 400ms ease;
   z-index: 1;
+  
+  /* Gradual CSS mask to dissolve the bottom edge completely */
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 35%, rgba(0, 0, 0, 0) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 1) 35%, rgba(0, 0, 0, 0) 100%);
 }
 
 .hero-backdrop::after {
@@ -335,7 +339,7 @@ body {
   right: 0;
   bottom: 0;
   background: 
-    linear-gradient(to top, var(--bg-dark-deep) 0%, var(--bg-dark-deep) 15%, rgba(3, 8, 18, 0.8) 45%, rgba(3, 8, 18, 0.1) 85%, rgba(3, 8, 18, 0.2) 100%),
+    linear-gradient(to top, var(--bg-dark-deep) 0%, var(--bg-dark-deep) 10%, rgba(3, 8, 18, 0.8) 40%, rgba(3, 8, 18, 0.1) 80%, rgba(3, 8, 18, 0.2) 100%),
     linear-gradient(to right, var(--bg-dark-deep) 0%, rgba(3, 8, 18, 0.4) 40%, rgba(3, 8, 18, 0) 100%);
   z-index: 2;
 }
