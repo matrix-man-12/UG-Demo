@@ -6,6 +6,42 @@ export const DetailsPage = ({ media, onClose }) => {
   const [activeRegion, setActiveRegion] = useState("buttons"); // 'buttons' or 'similar'
   const [similarFocusCol, setSimilarFocusCol] = useState(0);
 
+  // Dynamic bubbles generation based on the media content
+  const getRelatedBubbles = () => {
+    if (media.bubbles && media.bubbles.length > 0) {
+      return media.bubbles;
+    }
+    const custom = media.tags || [];
+    const extra = [];
+    if (media.brand) {
+      extra.push(`Best of ${media.brand}`);
+    }
+    if (media.rating && (media.rating.includes("8.") || media.rating.includes("9."))) {
+      extra.push("Critically Acclaimed");
+    } else {
+      extra.push("Viewer's Choice");
+    }
+    if (media.resolution) {
+      extra.push(`${media.resolution}`);
+    }
+    extra.push("Exclusive Extras");
+
+    const combined = [...custom, ...extra];
+    return Array.from(new Set(combined)).slice(0, 4);
+  };
+
+  // Dynamic similar section title
+  const getSimilarTitle = () => {
+    if (media.relatedTitle) return media.relatedTitle;
+    if (media.brand === "Samsung TV Plus") {
+      return `More Live Channels on ${media.brand}`;
+    }
+    if (media.liveShow) {
+      return `Recommended Live Broadcasts`;
+    }
+    return `Because You Liked "${media.title}"`;
+  };
+
   // Open a similar item's own details page
   const openSimilarDetails = (item) => {
     window.dispatchEvent(new CustomEvent("open-details", { detail: item }));
@@ -16,8 +52,7 @@ export const DetailsPage = ({ media, onClose }) => {
     { id: "similar_1", title: "Citadel", brand: "Prime Video", brandColor: "#00A8E1", rating: "IMDb 6.8", year: "2023", seasons: "1 Season", resolution: "4K UHD", description: "Formerly elite agents of a global spy agency, who had their memories wiped, must work together to piece together their past.", imageUrl: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=400&q=80", backdrop: "https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=1600&q=80" },
     { id: "similar_2", title: "Jack Ryan", brand: "Prime Video", brandColor: "#00A8E1", rating: "IMDb 8.0", year: "2023", seasons: "4 Seasons", resolution: "4K UHD", description: "CIA analyst Jack Ryan is thrust into a dangerous field assignment for the first time, uncovering a pattern in terrorist communication.", imageUrl: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=400&q=80", backdrop: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&w=1600&q=80" },
     { id: "similar_3", title: "The Boys", brand: "Prime Video", brandColor: "#00A8E1", rating: "IMDb 8.7", year: "2024", seasons: "4 Seasons", resolution: "4K UHD", description: "A group of vigilantes set out to take down corrupt superheroes who abuse their superpowers in a world where they are revered as heroes.", imageUrl: "https://images.unsplash.com/photo-1461360370896-922624d12aa1?auto=format&fit=crop&w=400&q=80", backdrop: "https://images.unsplash.com/photo-1461360370896-922624d12aa1?auto=format&fit=crop&w=1600&q=80" },
-    { id: "similar_4", title: "Stranger Things", brand: "Netflix", brandColor: "#E50914", rating: "IMDb 8.7", year: "2025", seasons: "5 Seasons", resolution: "4K UHD", description: "When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces, and one strange little girl.", imageUrl: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=400&q=80", backdrop: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1600&q=80" },
-    { id: "similar_5", title: "John Wick 4", brand: "Prime Video", brandColor: "#00A8E1", rating: "IMDb 7.7", year: "2023", duration: "2h 49m", resolution: "4K UHD", description: "John Wick uncovers a path to defeating The High Table. But before he can earn his freedom, he must face a new enemy with powerful alliances across the globe.", imageUrl: "https://images.unsplash.com/photo-1594909122845-11baa439b7bf?auto=format&fit=crop&w=400&q=80", backdrop: "https://images.unsplash.com/photo-1594909122845-11baa439b7bf?auto=format&fit=crop&w=1600&q=80" }
+    { id: "similar_4", title: "Stranger Things", brand: "Netflix", brandColor: "#E50914", rating: "IMDb 8.7", year: "2025", seasons: "5 Seasons", resolution: "4K UHD", description: "When a young boy vanishes, a small town uncovers a mystery involving secret experiments, terrifying supernatural forces, and one strange little girl.", imageUrl: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=400&q=80", backdrop: "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=1600&q=80" }
   ];
 
   // Map keyboard navigation on the details page
@@ -166,9 +201,25 @@ export const DetailsPage = ({ media, onClose }) => {
           </div>
         </div>
 
+        {/* Dynamic Divider Line */}
+        <div className="details-divider"></div>
+
+        {/* Related Topics / Bubbles */}
+        <div className="details-topic-bubbles" style={{ paddingLeft: "4px" }}>
+          {getRelatedBubbles().map((bubble, i) => (
+            <button 
+              key={i} 
+              className="details-bubble-pill"
+              onClick={() => alert(`Showing items related to topic: ${bubble}`)}
+            >
+              {bubble}
+            </button>
+          ))}
+        </div>
+
         {/* Similar Movies Carousel Shelf */}
         <div className="details-similar-shelf">
-          <h3 className="details-similar-title">Customers Also Watched</h3>
+          <h3 className="details-similar-title">{getSimilarTitle()}</h3>
           <div className="details-similar-scroller">
             {similarItems.map((item, index) => {
               const isFocused = activeRegion === "similar" && similarFocusCol === index;

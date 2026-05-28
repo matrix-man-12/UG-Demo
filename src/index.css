@@ -1135,9 +1135,28 @@ body {
   right: 0;
   bottom: 0;
   z-index: 1000;
-  overflow: hidden;
+  overflow-y: auto;
   background-color: var(--bg-dark-pure);
   animation: fade-in-details 400ms ease-out;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) rgba(0, 0, 0, 0.2);
+}
+
+.details-page-overlay::-webkit-scrollbar {
+  width: 8px;
+}
+
+.details-page-overlay::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.details-page-overlay::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+.details-page-overlay::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
 }
 
 @keyframes fade-in-details {
@@ -1146,7 +1165,7 @@ body {
 }
 
 .details-backdrop {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -1159,7 +1178,7 @@ body {
 }
 
 .details-overlay-gradient {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -1174,10 +1193,12 @@ body {
   position: relative;
   z-index: 10;
   padding: 48px;
-  height: 100%;
+  min-height: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 24px;
 }
 
 .details-back-hud {
@@ -1224,13 +1245,13 @@ body {
 .details-poster-wrap {
   position: relative;
   flex-shrink: 0;
-  width: 380px;
-  max-height: 340px;
-  border-radius: 16px;
+  width: 480px;
+  max-height: 360px;
+  border-radius: 20px;
   overflow: hidden;
   box-shadow: 
-    0 8px 40px rgba(0, 0, 0, 0.6),
-    0 0 60px rgba(0, 168, 255, 0.08);
+    0 12px 50px rgba(0, 0, 0, 0.7),
+    0 0 70px rgba(0, 168, 255, 0.12);
   align-self: center;
 }
 
@@ -1239,7 +1260,7 @@ body {
   height: 100%;
   object-fit: cover;
   display: block;
-  border-radius: 16px;
+  border-radius: 20px;
 }
 
 .details-poster-border-glow {
@@ -1248,7 +1269,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  border-radius: 16px;
+  border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   pointer-events: none;
   box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.4);
@@ -1345,12 +1366,59 @@ body {
   box-shadow: 0 0 15px rgba(255, 51, 51, 0.4);
 }
 
+/* TOPIC BUBBLES / TAGS */
+.details-topic-bubbles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 0;
+  margin-bottom: 24px;
+}
+
+.details-bubble-pill {
+  padding: 8px 18px;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all var(--transition-fast);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+
+.details-bubble-pill:hover,
+.details-bubble-pill:focus {
+  color: #ffffff;
+  background: rgba(0, 229, 255, 0.15);
+  border-color: rgba(0, 229, 255, 0.4);
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.details-bubble-pill:active {
+  transform: translateY(0);
+  background: rgba(0, 229, 255, 0.25);
+}
+
+/* DYNAMIC DIVIDER */
+.details-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.1) 15%, rgba(255, 255, 255, 0.1) 85%, rgba(255, 255, 255, 0.02) 100%);
+  margin: 35px 0;
+}
+
 /* RELATED ITEMS CAROUSEL SHELF */
 .details-similar-shelf {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .details-similar-title {
@@ -1373,9 +1441,9 @@ body {
 }
 
 .similar-card {
-  width: 200px;
+  width: 300px;
   aspect-ratio: 16 / 9;
-  border-radius: 12px;
+  border-radius: 14px;
   overflow: hidden;
   background: var(--bg-card-overlay);
   border: var(--border-normal);
@@ -1407,14 +1475,14 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 10px 8px;
+  padding: 12px 10px;
   background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 70%, rgba(0,0,0,0) 100%);
   display: flex;
   flex-direction: column;
 }
 
 .similar-title-text {
-  font-size: 0.8rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: #ffffff;
   white-space: nowrap;
@@ -1423,7 +1491,7 @@ body {
 }
 
 .similar-sub-text {
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   color: #a4b5cb;
 }
 
