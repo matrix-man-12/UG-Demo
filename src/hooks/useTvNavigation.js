@@ -28,7 +28,7 @@ export const useTvNavigation = (initialTab = "for-you", layoutData, mouseModeDef
   // Hero buttons count
   const heroButtonsCount = 2;
   // Top nav items count
-  const topNavCount = 3;
+  const topNavCount = 4;
 
   // Auto-update Hero Banner when focusing items in Row 0
   const [focusedMedia, setFocusedMedia] = useState(null);
@@ -154,7 +154,7 @@ export const useTvNavigation = (initialTab = "for-you", layoutData, mouseModeDef
         nextCol = Math.min(heroButtonsCount - 1, activeCol + 1);
       } else if (direction === "UP") {
         nextRegion = "top-nav";
-        nextCol = activeTab === "for-you" ? 0 : activeTab === "live" ? 1 : 2;
+        nextCol = activeTab === "vac" ? 0 : activeTab === "for-you" ? 1 : activeTab === "live" ? 2 : 3;
       } else if (direction === "DOWN") {
         nextRegion = "shelf-0";
         nextRow = 0;
@@ -184,7 +184,7 @@ export const useTvNavigation = (initialTab = "for-you", layoutData, mouseModeDef
         if (currentShelfIndex === 0) {
           if (activeTab === "apps") {
             nextRegion = "top-nav";
-            nextCol = 2;
+            nextCol = 3;
           } else {
             nextRegion = "hero-buttons";
             nextCol = 0;
@@ -275,7 +275,7 @@ export const useTvNavigation = (initialTab = "for-you", layoutData, mouseModeDef
   // Enter/Selection behavior
   const triggerSelection = useCallback(() => {
     if (activeRegion === "top-nav") {
-      const tabs = ["for-you", "live", "apps"];
+      const tabs = ["vac", "for-you", "live", "apps"];
       setActiveTab(tabs[activeCol]);
     } else if (activeRegion === "sidebar") {
       if (activeCol === 0) alert("Profile selected!");

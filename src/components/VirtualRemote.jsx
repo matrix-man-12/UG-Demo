@@ -12,7 +12,7 @@ export const VirtualRemote = ({
   mouseNavEnabled, 
   setMouseNavEnabled 
 }) => {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
   const [showTooltips, setShowTooltips] = useState(false);
 
   const handlePowerReset = () => {

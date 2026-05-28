@@ -141,7 +141,7 @@ export const SamsungTvLayout = ({
         />
 
         {/* CINEMATIC HERO BANNER */}
-        {activeTab !== "apps" && (
+        {activeTab !== "apps" && activeTab !== "vac" && (
           <HeroBanner
             focusedMedia={navigation.focusedMedia}
             activeRegion={navigation.activeRegion}
@@ -152,19 +152,88 @@ export const SamsungTvLayout = ({
         )}
 
         {/* SCROLLABLE CONTENT AREA — shelves scroll naturally via DOM */}
-        <div className={`tv-content-scroll-area ${isHeroCollapsed ? "expanded" : ""} ${activeTab === "apps" ? "apps-mode" : ""}`}>
-          <ShelvesList
-            shelfContainerRef={navigation.shelvesRef}
-            layoutData={layoutData}
-            activeRegion={navigation.activeRegion}
-            activeCol={navigation.activeCol}
-            activeRow={navigation.activeRow}
-            syncMouseFocus={navigation.syncMouseFocus}
-            shelfRefs={navigation.shelfRefs}
-            activeTab={activeTab}
-            isLoading={isLoading}
-          />
-        </div>
+        {activeTab !== "vac" ? (
+          <div className={`tv-content-scroll-area ${isHeroCollapsed ? "expanded" : ""} ${activeTab === "apps" ? "apps-mode" : ""}`}>
+            <ShelvesList
+              shelfContainerRef={navigation.shelvesRef}
+              layoutData={layoutData}
+              activeRegion={navigation.activeRegion}
+              activeCol={navigation.activeCol}
+              activeRow={navigation.activeRow}
+              syncMouseFocus={navigation.syncMouseFocus}
+              shelfRefs={navigation.shelfRefs}
+              activeTab={activeTab}
+              isLoading={isLoading}
+            />
+          </div>
+        ) : (
+          /* Futuristic Vision AI Companion Dashboard (VAC) */
+          <div className="vision-ai-dashboard">
+            <div className="vision-ai-grid">
+              {/* Left Panel: Camera Feed Scanner */}
+              <div className="vision-feed-panel">
+                <div className="vision-camera-feed">
+                  <div className="vision-scanner-line"></div>
+                  <div className="vision-bounding-box" style={{ top: "22%", left: "32%", width: "120px", height: "120px" }}>
+                    <span className="vision-tag animate-pulse">User Detected: Active (99%)</span>
+                  </div>
+                  <div className="vision-bounding-box secondary" style={{ top: "60%", left: "15%", width: "200px", height: "80px" }}>
+                    <span className="vision-tag">Sofa (94%)</span>
+                  </div>
+                  <div className="vision-bounding-box secondary" style={{ top: "45%", left: "65%", width: "120px", height: "100px" }}>
+                    <span className="vision-tag">Coffee Table (88%)</span>
+                  </div>
+                  <div className="vision-feed-grid"></div>
+                  <div className="vision-hud-status">
+                    <span className="status-dot green"></span>
+                    <span>VAC ENGINE: ONLINE (ACTIVE)</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Panel: AI Diagnostics & Mood Analysis */}
+              <div className="vision-stats-panel">
+                <h3 className="vision-panel-title">Vision AI Diagnostics</h3>
+                
+                <div className="vision-stat-card">
+                  <span className="stat-label">Ambient Scene Detection</span>
+                  <span className="stat-value text-cyan">Cozy Living Room</span>
+                  <div className="stat-bar-bg">
+                    <div className="stat-bar-fill" style={{ width: "98%" }}></div>
+                  </div>
+                </div>
+
+                <div className="vision-stat-card">
+                  <span className="stat-label">Viewer Mood Analysis</span>
+                  <span className="stat-value text-green">Relaxed & Engaged</span>
+                  <div className="stat-bar-bg">
+                    <div className="stat-bar-fill" style={{ width: "85%", backgroundColor: "#4caf50" }}></div>
+                  </div>
+                </div>
+
+                <div className="vision-recommendation-card">
+                  <h4 className="rec-title text-cyan">Vision AI Recommendations</h4>
+                  <p className="rec-desc">
+                    Relaxed mood detected. Ambient sunset light and calm audio content are recommended.
+                  </p>
+                  <div className="rec-pill-row">
+                    <span className="rec-pill">Sunset Ambient Mode</span>
+                    <span className="rec-pill">Cinematic Soundtrack</span>
+                    <span className="rec-pill">Vision TV Recommendation</span>
+                  </div>
+                </div>
+
+                <div className="vision-hud-footer">
+                  <span className="status-label">SYS TEMP: </span>
+                  <span className="status-val text-green">42°C</span>
+                  <span style={{ margin: "0 8px" }}>|</span>
+                  <span className="status-label">AI LATENCY: </span>
+                  <span className="status-val text-cyan">4.2ms</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
       
       {/* Toggling visual hint banner when remote-only mode active */}

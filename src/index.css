@@ -179,6 +179,46 @@ body {
   align-items: center;
   justify-content: center;
   transition: opacity var(--transition-normal);
+  gap: 12px;
+}
+
+.vac-nav-button {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 10px 24px;
+  border-radius: 30px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #9baec8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: all var(--transition-fast);
+  outline: none;
+}
+
+.vac-nav-button.focused {
+  color: #ffffff;
+  border: var(--border-focus);
+  box-shadow: var(--glow-shadow);
+  transform: scale(1.05);
+}
+
+.vac-nav-button.active {
+  background: #ffffff;
+  color: #030812;
+  font-weight: 700;
+}
+
+.vac-nav-button.active.focused {
+  border: 2px solid var(--color-accent-cyan);
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.5);
+  background: #ffffff;
+  color: #030812;
 }
 
 /* Centered Top Pill styling */
@@ -1500,4 +1540,250 @@ body {
   box-shadow: var(--glow-shadow);
   transform: scale(1.06) translateY(-2px);
   z-index: 5;
+}
+
+/* ========================================== */
+/* VISION AI DASHBOARD SYSTEM (VAC) */
+/* ========================================== */
+.vision-ai-dashboard {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  background: radial-gradient(circle at 50% 30%, rgba(0, 229, 255, 0.06) 0%, rgba(4, 9, 20, 0.98) 80%);
+  animation: fadeIn 500ms ease-out;
+  overflow: hidden;
+  height: calc(100vh - 120px);
+}
+
+.vision-ai-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 32px;
+  height: 100%;
+}
+
+.vision-feed-panel {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  height: 65vh;
+}
+
+.vision-camera-feed {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #091322 0%, #030814 100%);
+  overflow: hidden;
+}
+
+/* Scanning line laser */
+.vision-scanner-line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(to right, transparent, var(--color-accent-cyan), transparent);
+  box-shadow: 0 0 15px var(--color-accent-cyan);
+  animation: scanLaser 3s infinite ease-in-out;
+  z-index: 10;
+}
+
+@keyframes scanLaser {
+  0% { top: 0%; }
+  50% { top: 100%; }
+  100% { top: 0%; }
+}
+
+/* Bounding boxes overlaying objects */
+.vision-bounding-box {
+  position: absolute;
+  border: 2px solid var(--color-accent-cyan);
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.3);
+  z-index: 5;
+}
+
+.vision-bounding-box.secondary {
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.vision-tag {
+  position: absolute;
+  top: -24px;
+  left: 0;
+  background: var(--color-accent-cyan);
+  color: #030812;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.vision-bounding-box.secondary .vision-tag {
+  background: rgba(255, 255, 255, 0.4);
+  color: #ffffff;
+}
+
+/* Cyber grid lines background overlay */
+.vision-feed-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: 30px 30px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+  pointer-events: none;
+}
+
+.vision-hud-status {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,0,0,0.6);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.status-dot.green {
+  background: #4caf50;
+  box-shadow: 0 0 10px #4caf50;
+  animation: pulse 1.5s infinite;
+}
+
+/* Stats Panel styling */
+.vision-stats-panel {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+  height: 65vh;
+}
+
+.vision-panel-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #ffffff;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding-bottom: 12px;
+  margin: 0;
+}
+
+.vision-stat-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+}
+
+.stat-value {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.stat-bar-bg {
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.stat-bar-fill {
+  height: 100%;
+  background: var(--color-accent-cyan);
+  border-radius: 3px;
+}
+
+.vision-recommendation-card {
+  background: rgba(0, 229, 255, 0.03);
+  border: 1px solid rgba(0, 229, 255, 0.1);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rec-title {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.rec-desc {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.rec-pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.rec-pill {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--color-accent-cyan);
+  background: rgba(0, 229, 255, 0.08);
+  border: 1px solid rgba(0, 229, 255, 0.15);
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.vision-hud-footer {
+  margin-top: auto;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 16px;
+  font-size: 0.7rem;
+  color: rgba(255,255,255,0.4);
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.text-cyan {
+  color: var(--color-accent-cyan) !important;
+}
+
+.text-green {
+  color: #4caf50 !important;
 }

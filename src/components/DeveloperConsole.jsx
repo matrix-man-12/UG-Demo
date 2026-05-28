@@ -8,7 +8,7 @@ export const DeveloperConsole = ({
   setApiLatency, 
   onLayoutMutated 
 }) => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const [logs, setLogs] = useState([]);
   const [rawData, setRawData] = useState({});
   const [rowToEdit, setRowToEdit] = useState("recommended");
