@@ -148,12 +148,16 @@ body {
   font-weight: 500;
   font-size: 1rem;
   opacity: 0;
-  transition: all var(--transition-normal);
+  max-width: 0;
+  display: inline-block;
+  overflow: hidden;
+  transition: opacity var(--transition-normal), max-width var(--transition-normal);
   white-space: nowrap;
 }
 
 .tv-sidebar.expanded .sidebar-item-text {
   opacity: 1;
+  max-width: 150px;
 }
 
 .sidebar-item.focused {

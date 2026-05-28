@@ -110,15 +110,6 @@ export const SamsungTvLayout = ({
 
   return (
     <div className={`tv-screen ${isHeroCollapsed ? "hero-collapsed" : ""}`}>
-      {/* Dynamic Immersive Background HUD overlay */}
-      <div className="tv-hud-overlay">
-        <div className="tv-branding-text">SAMSUNG Universal Guide</div>
-        <div className="tv-time">
-          <Wifi size={14} style={{ color: "rgba(255, 255, 255, 0.6)" }} />
-          <span>{localTime}</span>
-        </div>
-      </div>
-
       {/* LEFT SIDEBAR navigation menu */}
       <Sidebar
         activeRegion={navigation.activeRegion}
@@ -131,6 +122,15 @@ export const SamsungTvLayout = ({
 
       {/* MAIN VIEWPORT */}
       <div className="tv-viewport" onWheel={handleWheel}>
+        {/* Dynamic Immersive Background HUD overlay */}
+        <div className="tv-hud-overlay">
+          <div className="tv-branding-text">SAMSUNG UG</div>
+          <div className="tv-time">
+            <Wifi size={14} style={{ color: "rgba(255, 255, 255, 0.6)" }} />
+            <span>{localTime}</span>
+          </div>
+        </div>
+
         {/* CENTER TOP CAPSULE NAVIGATION PILL */}
         <TopNavBar
           activeRegion={navigation.activeRegion}
