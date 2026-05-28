@@ -293,7 +293,7 @@ body {
   display: flex;
   align-items: flex-end;
   padding: 0 48px 32px 48px;
-  overflow: hidden;
+  overflow: visible;
   opacity: 1;
   transition: height 500ms ease, min-height 500ms ease, opacity 400ms ease, padding 400ms ease;
   z-index: 5;
@@ -310,15 +310,20 @@ body {
   pointer-events: none;
 }
 
+.hero-banner.collapsed .hero-backdrop {
+  height: 0;
+  opacity: 0;
+}
+
 .hero-backdrop {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
+  height: 75vh;
   background-size: cover;
   background-position: center 20%;
-  transition: background-image 600ms ease-in-out;
+  transition: background-image 600ms ease-in-out, height 500ms ease, opacity 400ms ease;
   z-index: 1;
 }
 
@@ -330,7 +335,7 @@ body {
   right: 0;
   bottom: 0;
   background: 
-    linear-gradient(to top, var(--bg-dark-deep) 0%, rgba(3, 8, 18, 0.7) 40%, rgba(3, 8, 18, 0.1) 80%, rgba(3, 8, 18, 0.2) 100%),
+    linear-gradient(to top, var(--bg-dark-deep) 0%, var(--bg-dark-deep) 15%, rgba(3, 8, 18, 0.8) 45%, rgba(3, 8, 18, 0.1) 85%, rgba(3, 8, 18, 0.2) 100%),
     linear-gradient(to right, var(--bg-dark-deep) 0%, rgba(3, 8, 18, 0.4) 40%, rgba(3, 8, 18, 0) 100%);
   z-index: 2;
 }
@@ -468,6 +473,7 @@ body {
   scrollbar-width: none;
   -ms-overflow-style: none;
   position: relative;
+  z-index: 6;
   /* When hero is visible, content starts right below the hero */
   padding-top: 8px;
   transition: padding-top 400ms ease;
